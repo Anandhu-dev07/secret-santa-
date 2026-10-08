@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secret Santa - Horror Edition. A dark gothic gift exchange ritual for 25 chosen souls.">
+    <title>SECRET SANTA : THE RITUAL OF 25 SOULS</title>
+    <!-- Google Fonts: Horror & Gothic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Creepster&family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body class="horror-body theme-dark">
+    <!-- Atmospheric Visual FX: Fog Layers, Ambient Canvas & Vignette -->
+    <div class="fog-layer fog-back"></div>
+    <div class="fog-layer fog-front"></div>
+    <div class="vignette-overlay"></div>
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+
+    <!-- Top Navigation / Ambient Audio Controls -->
+    <header class="app-header">
+        <div class="header-brand">
+            <span class="blood-icon">🩸</span>
+            <span class="brand-title">THE SANTA RITUAL</span>
+        </div>
+        <div class="header-controls">
+            <button id="sound-toggle-btn" class="horror-btn-sm" aria-label="Toggle Sound Effects">
+                <span id="sound-icon">🔇</span>
+                <span id="sound-text">SOUND: OFF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container auth-wrapper">
+        <div class="curse-runes-bg" aria-hidden="true">
+            <span>⛧</span><span>🕱</span><span>☥</span><span>🕇</span><span>👁</span>
+        </div>
+
+        <div class="auth-card horror-panel">
+            <div class="panel-glow-border"></div>
+            
+            <header class="auth-header">
+                <div class="blood-drip-container">
+                    <div class="drip drip-1"></div>
+                    <div class="drip drip-2"></div>
+                    <div class="drip drip-3"></div>
+                </div>
+                <h1 class="horror-title glitch-text" data-text="SECRET SANTA">SECRET SANTA</h1>
+                <p class="horror-subtitle">TWENTY-FIVE SOULS ENTER. ONE NAME AWAITS.</p>
+            </header>
+
+            <!-- Auth Tabs -->
+            <div class="auth-tabs" role="tablist">
+                <button class="tab-btn active" id="tab-login" role="tab" aria-selected="true" onclick="switchAuthTab('login')">
+                    ENTER THE COVEN (LOGIN)
+                </button>
+                <button class="tab-btn" id="tab-register" role="tab" aria-selected="false" onclick="switchAuthTab('register')">
+                    INSCRIBE THY SOUL (REGISTER)
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active-form" action="/login" method="POST">
+                <div class="form-group">
+                    <label for="login-email">GMAIL ESSENCE</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🕯️</span>
+                        <input type="email" id="login-email" name="email" required placeholder="student01@example.com" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">SECRET CIPHER (PASSWORD)</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🗝️</span>
+                        <input type="password" id="login-password" name="password" required placeholder="••••••••••••" autocomplete="current-password">
+                    </div>
+                </div>
+
+                <button type="submit" class="horror-btn blood-btn" id="login-submit-btn">
+                    <span class="btn-text">🩸 UNLOCK THE SANCTUM</span>
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form hidden-form" action="/register" method="POST">
+                <div class="form-group">
+                    <label for="reg-name">MORTAL NAME</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📜</span>
+                        <input type="text" id="reg-name" name="name" placeholder="Student Name" autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">GMAIL ADDRESS</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🕯️</span>
+                        <input type="email" id="reg-email" name="email" placeholder="newstudent@example.com" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-password">SECRET CIPHER</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🗝️</span>
+                        <input type="password" id="reg-password" name="password" placeholder="Create secret cipher" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-preference">DESIRED TRIBUTE (GIFT PREFERENCE)</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🎁</span>
+                        <input type="text" id="reg-preference" name="preference" placeholder="e.g. Cursed Skull Mug, Obsidian Dagger...">
+                    </div>
+                </div>
+
+                <button type="submit" class="horror-btn blood-btn" id="reg-submit-btn">
+                    <span class="btn-text">🩸 BIND THY SOUL</span>
+                </button>
+            </form>
+
+            <!-- Test Souls Quick-Selector Helper -->
+            <footer class="auth-footer">
+                <div class="test-helper-card">
+                    <div class="helper-header">
+                        <span class="sigil-glow">⛧</span>
+                        <span>TEST SOUL QUICK PORTAL</span>
+                    </div>
+                    <p class="helper-desc">Select any of the 25 test students to instantly populate credentials (Password: <code>HorrorSanta#2026</code>):</p>
+                    <div class="quick-soul-chips" id="quick-souls"></div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="static/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('quick-souls');
+            if (container) {
+                for (let i = 1; i <= 25; i++) {
+                    const pad = i < 10 ? '0' + i : i;
+                    const chip = document.createElement('button');
+                    chip.type = 'button';
+                    chip.className = 'soul-chip';
+                    chip.textContent = `S-${pad}`;
+                    chip.title = `Student ${pad} (student${pad}@example.com)`;
+                    chip.onclick = () => {
+                        switchAuthTab('login');
+                        document.getElementById('login-email').value = `student${pad}@example.com`;
+                        document.getElementById('login-password').value = 'HorrorSanta#2026';
+                        playHorrorSound('tick');
+                    };
+                    container.appendChild(chip);
+                }
+            }
+        });
+
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const regForm = document.getElementById('register-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabReg = document.getElementById('tab-register');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden-form');
+                loginForm.classList.add('active-form');
+                regForm.classList.add('hidden-form');
+                regForm.classList.remove('active-form');
+                tabLogin.classList.add('active');
+                tabReg.classList.remove('active');
+            } else {
+                regForm.classList.remove('hidden-form');
+                regForm.classList.add('active-form');
+                loginForm.classList.add('hidden-form');
+                loginForm.classList.remove('active-form');
+                tabReg.classList.add('active');
+                tabLogin.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

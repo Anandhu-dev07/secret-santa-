@@ -1,0 +1,1468 @@
+/* ==========================================================================
+   SECRET SANTA : HORROR EDITION - DESIGN SYSTEM & MASTER STYLESHEET
+   Aesthetics: Deep Gothic, Haunted Mansion, Occult Ritual, Premium Dark UI
+   ========================================================================== */
+
+:root {
+    --bg-abyss: #050307;
+    --bg-dark-1: #0a060e;
+    --bg-dark-2: #120b1a;
+    --bg-dark-3: #1a0f26;
+    
+    --crimson-pure: #8b0000;
+    --blood-bright: #ff1a35;
+    --blood-glow: rgba(255, 26, 53, 0.45);
+    --blood-deep: #4a000b;
+    --blood-gore: #660714;
+    
+    --spectral-purple: #3a1555;
+    --spectral-teal: #195b59;
+    --spectral-amber: #633909;
+    
+    --text-primary: #f0eae1;
+    --text-muted: #a69c8f;
+    --text-ghost: #6e6459;
+    
+    --font-heading: 'Cinzel Decorative', serif;
+    --font-horror: 'Creepster', cursive;
+    --font-body: 'Outfit', sans-serif;
+    --font-serif: 'Crimson Text', serif;
+    
+    --border-occult: 1px solid rgba(139, 0, 0, 0.35);
+    --border-glow: 1px solid rgba(255, 26, 53, 0.6);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.horror-body {
+    background-color: var(--bg-abyss);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Atmospheric Layers: Vignette, Fog, Particle Canvas
+   -------------------------------------------------------------------------- */
+.vignette-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+    background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.88) 100%);
+}
+
+.particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.fog-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0.18;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(100, 20, 35, 0.2) 25%, 
+        rgba(50, 10, 60, 0.25) 50%, 
+        rgba(100, 20, 35, 0.2) 75%, 
+        transparent 100%);
+    animation: fogDrift 35s linear infinite;
+}
+
+.fog-back {
+    animation-duration: 45s;
+    opacity: 0.12;
+}
+
+.fog-front {
+    animation-duration: 25s;
+    animation-direction: reverse;
+    opacity: 0.22;
+}
+
+@keyframes fogDrift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --------------------------------------------------------------------------
+   Header Navigation
+   -------------------------------------------------------------------------- */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: relative;
+    z-index: 20;
+    background: rgba(10, 6, 14, 0.75);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.header-brand a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.header-brand a:hover {
+    color: var(--blood-bright);
+}
+
+.header-divider {
+    color: var(--text-ghost);
+}
+
+.blood-icon {
+    font-size: 1.4rem;
+    filter: drop-shadow(0 0 6px var(--blood-bright));
+    animation: bloodPulse 3s ease-in-out infinite;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(255, 26, 53, 0.5);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons & Micro-interactions
+   -------------------------------------------------------------------------- */
+.horror-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.8rem;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--radius-sm);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+.horror-btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    font-family: var(--font-heading);
+    color: var(--text-muted);
+    background: rgba(20, 11, 28, 0.8);
+    border: 1px solid rgba(139, 0, 0, 0.4);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.horror-btn-sm:hover {
+    color: var(--text-primary);
+    border-color: var(--blood-bright);
+    background: rgba(74, 0, 11, 0.6);
+    box-shadow: 0 0 12px var(--blood-glow);
+}
+
+.blood-btn {
+    background: linear-gradient(135deg, var(--blood-gore) 0%, var(--blood-deep) 100%);
+    color: #fff;
+    border: 1px solid rgba(255, 26, 53, 0.6);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(255, 26, 53, 0.3);
+}
+
+.blood-btn:hover {
+    background: linear-gradient(135deg, var(--blood-bright) 0%, var(--crimson-pure) 100%);
+    box-shadow: 0 0 25px var(--blood-glow), inset 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.blood-btn:active {
+    transform: translateY(1px);
+}
+
+.cta-blood-btn {
+    background: linear-gradient(135deg, #a00014 0%, #4a000b 100%);
+    color: #fff;
+    font-size: 1.15rem;
+    padding: 1.1rem 2.5rem;
+    letter-spacing: 2px;
+    border: 2px solid var(--blood-bright);
+    box-shadow: 0 0 25px var(--blood-glow), inset 0 0 20px rgba(255, 26, 53, 0.4);
+}
+
+.cta-blood-btn:hover {
+    background: linear-gradient(135deg, var(--blood-bright) 0%, #8b0000 100%);
+    box-shadow: 0 0 40px rgba(255, 26, 53, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.4);
+    transform: scale(1.03);
+}
+
+.pulse-glow {
+    animation: pulseRed 2.4s infinite ease-in-out;
+}
+
+@keyframes pulseRed {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 26, 53, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(255, 26, 53, 0.85), 0 0 60px rgba(139, 0, 0, 0.5); }
+}
+
+/* --------------------------------------------------------------------------
+   Horror Panels & Cards
+   -------------------------------------------------------------------------- */
+.horror-panel {
+    background: rgba(14, 9, 20, 0.88);
+    border: 1px solid rgba(139, 0, 0, 0.45);
+    border-radius: var(--radius-md);
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.panel-glow-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--blood-bright) 50%, transparent 100%);
+    box-shadow: 0 0 10px var(--blood-bright);
+}
+
+/* Blood Drip Decor */
+.blood-drip-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.drip {
+    width: 6px;
+    background: var(--blood-bright);
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 0 8px var(--blood-bright);
+    animation: dripFall 4s ease-in-out infinite;
+}
+
+.drip-1 { height: 18px; animation-delay: 0.2s; }
+.drip-2 { height: 28px; animation-delay: 1.5s; }
+.drip-3 { height: 14px; animation-delay: 2.7s; }
+
+@keyframes dripFall {
+    0%, 100% { transform: scaleY(1); opacity: 0.8; }
+    50% { transform: scaleY(1.4); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   Typography & Glitch Effects
+   -------------------------------------------------------------------------- */
+.horror-title {
+    font-family: var(--font-heading);
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+.ominous-glow {
+    text-shadow: 0 0 15px rgba(255, 26, 53, 0.6), 0 0 35px rgba(139, 0, 0, 0.4);
+}
+
+.horror-subtitle {
+    color: var(--text-muted);
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-top: 0.4rem;
+}
+
+.glitch-text {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    opacity: 0.7;
+}
+
+.glitch-text::before {
+    left: -2px;
+    color: #ff0055;
+    animation: glitchAnim1 4s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: 2px;
+    color: #00ffff;
+    animation: glitchAnim2 3.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchAnim1 {
+    0%, 90% { transform: none; opacity: 0; }
+    92% { transform: skew(3deg); opacity: 0.8; }
+    94% { transform: translate(-3px, 1px); opacity: 0.9; }
+    96% { transform: none; opacity: 0; }
+}
+
+@keyframes glitchAnim2 {
+    0%, 92% { transform: none; opacity: 0; }
+    94% { transform: skew(-3deg); opacity: 0.8; }
+    96% { transform: translate(3px, -1px); opacity: 0.9; }
+    98% { transform: none; opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   Whisper Lore Background Phrases
+   -------------------------------------------------------------------------- */
+.whisper-lore {
+    position: fixed;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: rgba(236, 229, 219, 0.12);
+    pointer-events: none;
+    z-index: 4;
+    user-select: none;
+    transition: opacity 1s ease;
+}
+
+.lore-top-left { top: 7rem; left: 2.5rem; }
+.lore-top-right { top: 7rem; right: 2.5rem; }
+.lore-bottom-left { bottom: 2rem; left: 2.5rem; }
+.lore-bottom-right { bottom: 2rem; right: 2.5rem; }
+
+/* --------------------------------------------------------------------------
+   Authentication Portal (Index.html)
+   -------------------------------------------------------------------------- */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.curse-runes-bg {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 900px;
+    font-size: 5rem;
+    color: rgba(139, 0, 0, 0.08);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 2.5rem 2.2rem;
+    z-index: 10;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+
+.auth-header .horror-title {
+    font-size: 2rem;
+}
+
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1.6rem;
+    background: rgba(10, 6, 14, 0.6);
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.tab-btn {
+    padding: 0.7rem 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.tab-btn.active {
+    background: rgba(139, 0, 0, 0.45);
+    color: var(--text-primary);
+    box-shadow: inset 0 0 10px rgba(255, 26, 53, 0.3);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.hidden-form {
+    display: none !important;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    font-size: 1rem;
+    opacity: 0.75;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.8rem;
+    background: rgba(8, 4, 12, 0.85);
+    border: 1px solid rgba(139, 0, 0, 0.45);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.input-wrapper input:focus {
+    border-color: var(--blood-bright);
+    box-shadow: 0 0 15px var(--blood-glow), inset 0 0 8px rgba(255, 26, 53, 0.2);
+    background: rgba(12, 6, 18, 0.95);
+}
+
+.horror-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.4rem;
+    background: rgba(74, 0, 11, 0.85);
+    border: 1px solid var(--blood-bright);
+    border-radius: var(--radius-sm);
+    color: #ff99a8;
+    font-size: 0.88rem;
+    box-shadow: 0 0 20px rgba(255, 26, 53, 0.35);
+}
+
+.test-helper-card {
+    margin-top: 1.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed rgba(139, 0, 0, 0.35);
+}
+
+.helper-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--blood-bright);
+    margin-bottom: 0.4rem;
+}
+
+.helper-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.helper-desc code {
+    background: rgba(0, 0, 0, 0.6);
+    color: #ff99a8;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.quick-soul-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-height: 85px;
+    overflow-y: auto;
+    padding: 4px;
+    background: rgba(6, 3, 9, 0.6);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.soul-chip {
+    padding: 3px 8px;
+    background: rgba(26, 11, 38, 0.8);
+    color: var(--text-muted);
+    border: 1px solid rgba(139, 0, 0, 0.35);
+    border-radius: 3px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: var(--transition-fast);
+}
+
+.soul-chip:hover {
+    background: var(--blood-bright);
+    color: #fff;
+    box-shadow: 0 0 8px var(--blood-glow);
+}
+
+/* --------------------------------------------------------------------------
+   Dashboard Styles
+   -------------------------------------------------------------------------- */
+.dashboard-wrapper {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1.2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.dashboard-hero {
+    padding: 3rem 2.5rem;
+    text-align: center;
+}
+
+.greeting-box {
+    margin-bottom: 2.5rem;
+}
+
+.soul-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(22, 11, 32, 0.7);
+    border: 1px solid rgba(139, 0, 0, 0.4);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+}
+
+.sigil-pulse {
+    color: var(--blood-bright);
+    animation: bloodPulse 2s infinite ease-in-out;
+}
+
+.mortal-id {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    color: var(--text-primary);
+}
+
+.email-subtle {
+    font-size: 0.78rem;
+    color: var(--text-ghost);
+}
+
+.ritual-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2.8rem;
+    text-align: left;
+}
+
+.status-card {
+    background: rgba(8, 4, 12, 0.75);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition-fast);
+}
+
+.status-card:hover {
+    border-color: var(--blood-bright);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(255, 26, 53, 0.2);
+}
+
+.card-icon {
+    font-size: 1.8rem;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.card-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 1.2px;
+    color: var(--text-ghost);
+}
+
+.card-val {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.highlight-val {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: #ffb3bf;
+}
+
+.status-pending {
+    color: #ffaa00;
+}
+
+.status-sealed {
+    color: #ff3344;
+    text-shadow: 0 0 8px rgba(255, 51, 68, 0.6);
+}
+
+.cta-chamber {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.invitation-notice {
+    max-width: 600px;
+    background: rgba(74, 0, 11, 0.4);
+    border: 1px solid rgba(255, 26, 53, 0.4);
+    padding: 0.9rem 1.4rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    color: #ffd6dc;
+}
+
+.sealed-notice {
+    background: rgba(22, 10, 15, 0.8);
+    border: 1px solid rgba(139, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    max-width: 650px;
+}
+
+.sealed-heading {
+    font-family: var(--font-heading);
+    color: var(--blood-bright);
+    font-size: 1.25rem;
+    margin: 0.6rem 0;
+    letter-spacing: 2px;
+}
+
+.sealed-desc {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+}
+
+.chamber-lore {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(139, 0, 0, 0.3);
+    text-align: left;
+}
+
+.lore-item {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.82rem;
+    color: var(--text-ghost);
+    font-family: var(--font-serif);
+    font-style: italic;
+}
+
+.lore-bullet {
+    color: var(--blood-bright);
+    font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   Secret Santa Selection Chamber & Wheel Interaction (secret_santa.html)
+   -------------------------------------------------------------------------- */
+.arena-container {
+    max-width: 1100px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.arena-header {
+    margin-bottom: 1.8rem;
+}
+
+.arena-instructions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+    background: rgba(20, 10, 26, 0.7);
+    border: 1px dashed rgba(255, 26, 53, 0.4);
+    padding: 0.5rem 1.4rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    letter-spacing: 1.5px;
+    font-family: var(--font-heading);
+    color: #ffccd3;
+}
+
+.mobile-hint { display: none; }
+@media (hover: none) and (pointer: coarse) {
+    .desktop-hint { display: none; }
+    .mobile-hint { display: inline; }
+}
+
+.ritual-stage {
+    position: relative;
+    width: 620px;
+    height: 620px;
+    margin: 1rem auto 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: crosshair;
+}
+
+/* The Wheel Outer Ring */
+.wheel-outer-ring {
+    position: relative;
+    width: 580px;
+    height: 580px;
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(139, 0, 0, 0.6);
+    border: 6px solid #1a0f1d;
+    background: #08040b;
+    overflow: hidden;
+    transition: box-shadow 0.5s ease;
+}
+
+.wheel-inner-border {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 26, 53, 0.4);
+    pointer-events: none;
+    z-index: 8;
+}
+
+.wheel-disc {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform-origin: center center;
+    transition: transform 6s cubic-bezier(0.12, 0.95, 0.22, 1);
+}
+
+.wheel-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Center Demonic Hub */
+.wheel-center-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, #3d050f 0%, #0a040d 80%);
+    border: 3px solid var(--blood-bright);
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(255, 26, 53, 0.8), inset 0 0 15px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.eye-pupil {
+    font-size: 2.2rem;
+    animation: eyeScan 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px var(--blood-bright));
+}
+
+@keyframes eyeScan {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15) rotate(5deg); }
+}
+
+/* Top Pointer Indicator */
+.wheel-pointer-container {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 25;
+    pointer-events: none;
+}
+
+.wheel-pointer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pointer-gem {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 10px var(--blood-bright));
+}
+
+.pointer-arrow {
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 26px solid var(--blood-bright);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+    animation: pointerBounce 1.5s infinite ease-in-out;
+}
+
+@keyframes pointerBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
+/* Interactive Crosshair & Dart */
+.aim-crosshair {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+    z-index: 30;
+    transform: translate(-50%, -50%);
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.crosshair-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px dashed rgba(255, 26, 53, 0.8);
+    border-radius: 50%;
+    animation: rotateCrosshair 8s linear infinite;
+}
+
+.crosshair-line {
+    position: absolute;
+    background: rgba(255, 26, 53, 0.8);
+}
+
+.h-line { top: 50%; left: -8px; right: -8px; height: 1px; transform: translateY(-50%); }
+.v-line { left: 50%; top: -8px; bottom: -8px; width: 1px; transform: translateX(-50%); }
+
+.crosshair-sigil {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem;
+    color: var(--blood-bright);
+}
+
+@keyframes rotateCrosshair {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* The Horror Dart */
+.horror-dart {
+    position: absolute;
+    width: 38px;
+    height: 70px;
+    pointer-events: none;
+    z-index: 35;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    transition: none;
+}
+
+.dart-tip {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 22px solid #silver;
+    border-bottom-color: #d1c7bc;
+    filter: drop-shadow(0 0 5px rgba(255, 26, 53, 0.7));
+}
+
+.dart-shaft {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 35px;
+    background: linear-gradient(to bottom, #4a2810, #1c0e05);
+    border-radius: 2px;
+}
+
+.dart-feather {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 18px;
+    background: radial-gradient(circle, var(--blood-bright) 0%, var(--blood-gore) 70%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    box-shadow: 0 0 8px var(--blood-glow);
+}
+
+/* Dart flight animation */
+.dart-flying {
+    opacity: 1;
+    animation: dartFlight 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes dartFlight {
+    0% {
+        transform: translate(-50%, 150px) scale(1.6) rotate(-15deg);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.85) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.ritual-hud {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.hud-status {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Horror Modals & Reveal Overlays
+   -------------------------------------------------------------------------- */
+.horror-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.horror-modal-backdrop.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.horror-modal-card {
+    max-width: 500px;
+    width: 100%;
+    padding: 2.8rem 2.2rem;
+    text-align: center;
+}
+
+.modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.modal-whisper {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.selected-sigil-glow {
+    font-size: 4rem;
+    color: var(--blood-bright);
+    margin: 1.2rem 0;
+    filter: drop-shadow(0 0 20px var(--blood-glow));
+    animation: bloodPulse 2s infinite ease-in-out;
+}
+
+.modal-lore {
+    color: #ffccd3;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* Dramatic Reveal Blackout Overlay */
+.reveal-blackout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #020104;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: blackoutFadeIn 0.8s ease forwards;
+}
+
+.reveal-blackout.hidden {
+    display: none;
+}
+
+@keyframes blackoutFadeIn {
+    0% { opacity: 0; background: #000; }
+    50% { opacity: 1; background: #0c0003; }
+    100% { opacity: 1; background: #050307; }
+}
+
+.reveal-card {
+    max-width: 580px;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    animation: cardEmerge 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cardEmerge {
+    0% { transform: scale(0.85) translateY(30px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.reveal-badge {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: rgba(139, 0, 0, 0.5);
+    border: 1px solid var(--blood-bright);
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    letter-spacing: 1.8px;
+    color: #ffd6dc;
+    margin-bottom: 1.2rem;
+}
+
+.reveal-caption {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+}
+
+.recipient-name-holder {
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    border-top: 1px dashed rgba(255, 26, 53, 0.4);
+    border-bottom: 1px dashed rgba(255, 26, 53, 0.4);
+}
+
+.recipient-name-text {
+    font-family: var(--font-heading);
+    font-size: 2.6rem;
+    color: var(--blood-bright);
+    letter-spacing: 3px;
+    text-shadow: 0 0 25px rgba(255, 26, 53, 0.75);
+}
+
+.gift-wish-section {
+    background: rgba(22, 10, 16, 0.8);
+    border: 1px solid rgba(139, 0, 0, 0.5);
+    border-radius: var(--radius-sm);
+    padding: 1.4rem;
+    margin: 1.8rem 0;
+}
+
+.wish-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--blood-bright);
+    margin-bottom: 0.5rem;
+}
+
+.wish-content {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.reveal-warning {
+    font-size: 0.82rem;
+    color: var(--text-ghost);
+    margin-bottom: 1.8rem;
+}
+
+/* Curse Modal (Already Played) */
+.modal-curse-red {
+    border-color: var(--blood-bright);
+    background: rgba(25, 5, 8, 0.95);
+    box-shadow: 0 0 60px rgba(255, 26, 53, 0.6), inset 0 0 25px rgba(139, 0, 0, 0.7);
+}
+
+.curse-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.curse-title {
+    font-size: 1.6rem;
+    color: var(--blood-bright);
+    letter-spacing: 2px;
+}
+
+.curse-message-1 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: #fff;
+    margin: 0.8rem 0 0.2rem;
+}
+
+.curse-message-2 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: #ff99a8;
+}
+
+.curse-subtext {
+    font-size: 0.82rem;
+    color: var(--text-ghost);
+    margin: 1.4rem 0 2rem;
+}
+
+.curse-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   Result Page Styles (result.html)
+   -------------------------------------------------------------------------- */
+.result-wrapper {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1.2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.result-card {
+    padding: 3.5rem 2.8rem;
+    text-align: center;
+}
+
+.result-status-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    background: rgba(74, 0, 11, 0.6);
+    border: 1px solid var(--blood-bright);
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #ffb3bf;
+    margin-bottom: 1.5rem;
+}
+
+.recipient-showcase {
+    margin: 2.5rem 0;
+}
+
+.tombstone-frame {
+    background: radial-gradient(circle, #240a12 0%, #0c040d 80%);
+    border: 2px solid rgba(255, 26, 53, 0.5);
+    border-radius: 60px 60px 10px 10px;
+    padding: 2.5rem 1.5rem;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(139, 0, 0, 0.4);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.frame-runes-top, .frame-runes-bottom {
+    font-size: 1.2rem;
+    color: rgba(255, 26, 53, 0.6);
+    letter-spacing: 12px;
+}
+
+.recipient-display-name {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    color: #fff;
+    margin: 1.2rem 0;
+    text-shadow: 0 0 20px rgba(255, 26, 53, 0.8);
+}
+
+.tribute-showcase {
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.tribute-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    color: var(--blood-bright);
+}
+
+.tribute-box {
+    background: rgba(10, 5, 14, 0.8);
+    border: 1px solid rgba(139, 0, 0, 0.4);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.tribute-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #ffd6dc;
+}
+
+.sealed-warning-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: rgba(30, 8, 12, 0.5);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 580px;
+    margin: 0 auto 2.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Animations: Screen Shake, Glitch Shake, Blood Pulse
+   -------------------------------------------------------------------------- */
+.glitch-shake {
+    animation: violentShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes violentShake {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(3px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+    40%, 60% { transform: translate3d(5px, 0, 0); }
+}
+
+@keyframes bloodPulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Media Queries (Mobile, Tablet, Desktop)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .app-header {
+        padding: 0.8rem 1rem;
+    }
+    
+    .brand-title {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .whisper-lore {
+        display: none;
+    }
+
+    .ritual-stage {
+        width: 360px;
+        height: 360px;
+        margin: 0.5rem auto 2rem;
+    }
+
+    .wheel-outer-ring {
+        width: 340px;
+        height: 340px;
+    }
+
+    .wheel-center-hub {
+        width: 65px;
+        height: 65px;
+    }
+
+    .eye-pupil {
+        font-size: 1.6rem;
+    }
+
+    .pointer-gem {
+        font-size: 1.1rem;
+    }
+
+    .pointer-arrow {
+        border-top-width: 18px;
+        border-left-width: 10px;
+        border-right-width: 10px;
+    }
+
+    .auth-card, .dashboard-hero, .result-card {
+        padding: 1.8rem 1.2rem;
+    }
+
+    .horror-title {
+        font-size: 1.6rem;
+    }
+
+    .recipient-name-text {
+        font-size: 1.8rem;
+    }
+
+    .ritual-status-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .ritual-stage {
+        width: 300px;
+        height: 300px;
+    }
+
+    .wheel-outer-ring {
+        width: 290px;
+        height: 290px;
+    }
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
